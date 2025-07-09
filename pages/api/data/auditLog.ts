@@ -1,4 +1,4 @@
-export let auditLog: {
+export const auditLog: {
   id: number;
   admin: string;
   action: string;
