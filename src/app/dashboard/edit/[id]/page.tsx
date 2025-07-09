@@ -1,12 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-
+interface Listing {
+  id: string;
+  car: string;
+  owner: string;
+  status: string;
+}
 export default function EditListingPage() {
   const params = useParams();
   const id = params?.id as string;
   const router = useRouter();
-  const [item, setItem] = useState<any>(null);
+const [item, setItem] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 

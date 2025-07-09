@@ -1,3 +1,4 @@
+
 import type { NextApiRequest, NextApiResponse } from "next";
 import { listings } from "../data/listings";
 import { writeAuditLog } from "../utils/auditStorage";

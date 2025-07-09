@@ -2,9 +2,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFeedback } from "../../../FeedbackContext";
-
+interface Listing {
+  id: string;
+  car: string;
+  owner: string;
+  status: string;
+}
 export default function Dashboard() {
-  const [listings, setListings] = useState<any[]>([]);
+const [listings, setListings] = useState<Listing[]>([]);
+
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [filter, setFilter] = useState("all");
