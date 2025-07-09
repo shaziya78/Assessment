@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFeedback } from "../../../FeedbackContext";
 interface Listing {
@@ -11,29 +11,30 @@ interface Listing {
 export default function Dashboard() {
 const [listings, setListings] = useState<Listing[]>([]);
 
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [filter, setFilter] = useState("all");
+ const [page, setPage] = useState<number>(1);  
+const [totalPages, setTotalPages] = useState<number>(1);
+const [filter, setFilter] = useState<string>("all");
 
   const router = useRouter();
   const { showMessage } = useFeedback();
 
-  useEffect(() => {
+  
+
+  const fetchListings = useCallback(async (page = 1) => {
+  const res = await fetch(`/api/listings?page=${page}&limit=10&status=${filter}`);
+  const result = await res.json();
+  setListings(result.data);
+  setTotalPages(result.totalPages);
+}, [filter]); 
+
+useEffect(() => {
     if (!localStorage.getItem("auth")) {
       router.push("/");
     } else {
       fetchListings(page);
     }
-  }, [page, filter]);
+  }, [page, filter,fetchListings,router]);
 
-  const fetchListings = async (page = 1) => {
-    const res = await fetch(
-      `/api/listings?page=${page}&limit=10&status=${filter}`
-    );
-    const result = await res.json();
-    setListings(result.data);
-    setTotalPages(result.totalPages);
-  };
   const handleAction = async (id: number, action: string) => {
     const res = await fetch("/api/listings", {
       method: "PATCH",

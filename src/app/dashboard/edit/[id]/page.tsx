@@ -11,7 +11,7 @@ export default function EditListingPage() {
   const params = useParams();
   const id = params?.id as string;
   const router = useRouter();
-const [item, setItem] = useState<Listing | null>(null);
+  const [item, setItem] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
