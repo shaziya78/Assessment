@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+
 interface Listing {
   id: string;
   car: string;
@@ -81,13 +82,23 @@ export default function EditListingPage() {
       placeholder="Enter owner name"
     />
 
-    <button
+   <div className="flex gap-10">
+     <button
       className="bg-white text-black w-full text-sm font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
       onClick={handleSave}
       disabled={saving}
     >
       {saving ? "Saving..." : "Save Changes"}
     </button>
+    
+    <button
+      onClick={() => router.push("/dashboard")}
+      className="bg-white text-black w-full text-sm font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
+    >
+     Cancel
+    </button>
+   </div>
+
   </div>
 </div>
 
